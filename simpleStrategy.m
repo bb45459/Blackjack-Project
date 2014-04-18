@@ -1,4 +1,4 @@
-function [players,deck]=simpleStrategy(players,deck,dealer,player)
+function [players,deck,newbets]=simpleStrategy(players,deck,dealer,player,bets)
 
 % Performs the simple stratey for each hand
 
@@ -22,7 +22,7 @@ end
 %fully determined
 sizeofcellarray = size(players{player});
 handnumber = sizeofcellarray(1);
-
+newbets=bets;
 
 for k=1:handnumber
     % change hand
@@ -42,6 +42,7 @@ for k=1:handnumber
                 case 2 %double down
                     [players,deck]=doubledown(players,deck,player,k);
                     stand=true;
+                    newbets(player)=bets(player)*2;
                     % hand over when doubled down
                 case 0 %stand
                     stand=true;
@@ -63,20 +64,24 @@ end
 
 %% play the hard hand strategy to either bust or stand
 
-for k=1:handnumber
-    %change hand
-    stand=false;
-    
-    while stand==false
-        move=hardSimple(handtotal(players{player},k),dealer{1});
-        switch move
-            case 1 % hit
-                [players,deck]=hit(players,deck,player,k);
-            case 2 % doubledown
-                [players,deck]=doubledown(players,deck,player,k);
-                stand=true;
-            case 0 % stand
-                stand = true;
+% dont do this if player doubled down before
+if newbets(player)~= bets(player)
+    for k=1:handnumber
+        %change hand
+        stand=false;
+        
+        while stand==false
+            move=hardSimple(handtotal(players{player},k),dealer{1});
+            switch move
+                case 1 % hit
+                    [players,deck]=hit(players,deck,player,k);
+                case 2 % doubledown
+                    [players,deck]=doubledown(players,deck,player,k);
+                    stand=true;
+                    newbets(player)=bets(player)*2;
+                case 0 % stand
+                    stand = true;
+            end
         end
     end
 end

@@ -1,108 +1,30 @@
 clear
 clc
 
+%% initial values
+
 numplayers=3;
 numdecks=2;
+initialstake=100;
+betvalue=5;
 
-deck=createDeck(numdecks);
-deck=shuffle(deck);
-[players,dealer,deck]=deal(deck,numplayers);
+%% create stakes
+stakes=zeros(1,numplayers);
+bets=zeros(1,numplayers);
 
-for j=1:numplayers
-    [players,deck]=simpleStrategy(players,deck,dealer,j);
+for i=1:numplayers
+    stakes(i)=initialstake;
+    bets(i)=betvalue;
 end
 
-% for j=1:numplayers
-%     [players,deck]=mimicdealer(deck,players,j);
-%     %j is the player currently playing
-% end
+%% play the game till player 1 runs out of money
 
-% [players,deck]=split(players,deck,1);
-% [players,deck]=doubledown(players,deck,2,1);
-% [players,deck]=hit(players,deck,3,1);
+numhandsplayed=0;
 
-% for j=1:numplayers
-%     [players,deck]=doubledown(players,deck,j,1);
-% end
+while stakes(1)>0
+    stakes=playSimpleStrategyHand(numplayers,numdecks,stakes,bets);
+    disp(num2str(stakes(1)))
+    numhandsplayed=numhandsplayed+1;
+end
 
-% %% check to see if player should split
-% 
-% %players can only split once!
-% 
-% player=1;
-% % players{player}{1}=1;
-% % players{player}{2}=1;
-% 
-% if players{player}{1}==players{player}{2}
-%     move = splitSimple(players{player}{1},dealer{1});
-%     if move==1
-%         [players,deck]=split(players,deck,player);
-%     end
-% end
-% 
-% %% check if player has an ace in either hand and play soft strategy if true
-% 
-% %this stops when the player has a "hard" hand where the value of the ace is
-% %fully determined
-% sizeofcellarray = size(players{player});
-% handnumber = sizeofcellarray(1);
-% 
-% 
-% for k=1:handnumber
-%     % change hand
-%     stand=false;
-%     acepresent = false;
-%     i=0;
-%     
-%     while stand==false
-%         i=i+1;
-%         if players{player}{k,i}==1
-%             acepresent = true;
-%             move = softSimple(handtotal(players{player},k),dealer{1});
-%             switch move
-%                 case 1 %hit
-%                     [players,deck]=hit(players,deck,player,k);
-%                     i=0;
-%                 case 2 %double down
-%                     [players,deck]=doubledown(players,deck,player,k);
-%                     stand=true;
-%                     % hand over when doubled down
-%                 case 0 %stand
-%                     stand=true;
-%             end
-%         end
-%         if i==10 % if there are no aces in hand move on
-%             stand = true;
-%             acepresent = false;
-%         end
-%     end
-%     % properly adjust the ace to be a 1 or 11
-%     if handtotal(players{player},k)<=11 && acepresent
-%         players{player}{k,i}=11;
-%     end
-%     
-% end
-% 
-% 
-% 
-% %% play the hard hand strategy to either bust or stand
-% 
-% for k=1:handnumber
-%     %change hand
-%     stand=false;
-%     
-%     while stand==false
-%         move=hardSimple(handtotal(players{player},k),dealer{1});
-%         switch move
-%             case 1 % hit
-%                 [players,deck]=hit(players,deck,player,k);
-%             case 2 % doubledown
-%                 [players,deck]=doubledown(players,deck,player,k);
-%                 stand=true;
-%             case 0 % stand
-%                 stand = true;
-%         end
-%     end
-% end
-
-
+disp([num2str(numhandsplayed) ' hands played'])
