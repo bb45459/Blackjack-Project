@@ -1,0 +1,18 @@
+function [newplayers,newdeck]=hit(players,deck,player,handnumber)
+
+% function for a hit command which gives the desired hand one more card
+
+newplayers = players;
+newdeck = deck;
+
+
+
+disp(['Player ' num2str(player) ' hit'])
+
+while k
+
+
+topCard=getDeckPos(newdeck);
+newplayers{player}{handnumber,k}=newdeck(topCard).value;
+disp(['Player ' num2str(player) ' got ' newdeck(topCard).title])
+newdeck(topCard).location=['Player ' num2str(player) ' hand'];

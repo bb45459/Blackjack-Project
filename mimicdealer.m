@@ -23,7 +23,7 @@ while handtotal(players{player})<17
     
     for i=1:length(players{player})
         if ~isempty(players{player}{i})
-            if players{player}{i}==1&&handtotal(players{player})>=7&&handtotal(players{player})<=11
+            if players{player}{i}==1&&handtotal(players{player},1)>=7&&handtotal(players{player},1)<=11
                 players{player}{i}=11;
             end
         end

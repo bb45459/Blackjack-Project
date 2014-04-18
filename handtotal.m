@@ -1,9 +1,9 @@
-function sum=handtotal(playerhand);
+function sum=handtotal(playerhand,handnumber)
 % playerhand is a cell array
 sum=0;
 
 for k=1:length(playerhand)
-    if ~isempty(playerhand{k})
-        sum=sum+playerhand{k};
+    if ~isempty(playerhand{handnumber,k})
+        sum=sum+playerhand{handnumber,k};
     end
 end
