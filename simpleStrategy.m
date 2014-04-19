@@ -3,7 +3,7 @@ function [players,deck,newbets]=simpleStrategy(players,deck,dealer,player,bets)
 % Performs the simple stratey for each hand
 
 %% check to see if player should split
-
+newbets=bets;
 %players can only split once!
 
 % players{player}{1}=1;
@@ -13,6 +13,7 @@ if players{player}{1}==players{player}{2}
     move = splitSimple(players{player}{1},dealer{1});
     if move==1
         [players,deck]=split(players,deck,player);
+        newbets(2,player)=bets(1,player);
     end
 end
 
@@ -22,7 +23,8 @@ end
 %fully determined
 sizeofcellarray = size(players{player});
 handnumber = sizeofcellarray(1);
-newbets=bets;
+
+doubleddown=zeros(1,2);
 
 for k=1:handnumber
     % change hand
@@ -42,7 +44,8 @@ for k=1:handnumber
                 case 2 %double down
                     [players,deck]=doubledown(players,deck,player,k);
                     stand=true;
-                    newbets(player)=bets(player)*2;
+                    newbets(player)=newbets(player)+bets(k,player);
+                    doubleddown(k)=1;
                     % hand over when doubled down
                 case 0 %stand
                     stand=true;
@@ -65,9 +68,9 @@ end
 %% play the hard hand strategy to either bust or stand
 
 % dont do this if player doubled down before
-if newbets(player)~= bets(player)
-    for k=1:handnumber
-        %change hand
+for k=1:handnumber
+    %change hand
+    if doubleddown(k)==0
         stand=false;
         
         while stand==false
@@ -78,7 +81,7 @@ if newbets(player)~= bets(player)
                 case 2 % doubledown
                     [players,deck]=doubledown(players,deck,player,k);
                     stand=true;
-                    newbets(player)=bets(player)*2;
+                    newbets(player)=newbets(player)+bets(k,player);
                 case 0 % stand
                     stand = true;
             end
