@@ -1,6 +1,6 @@
-function [stakes]=playSimpleStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17)
+function stakes = playMimicDealerHand(numplayers,numdecks,stakes,bets,standOnSoft17)
 
-% plays a hand of blackjack using the simple strategy for player strategies
+% plays a hand where players and dealers use the same strategy
 
 %% players play
 
@@ -9,7 +9,7 @@ deck=shuffle(deck);
 [players,dealer,deck]=deal(deck,numplayers);
 
 for j=1:numplayers
-    [players,deck,bets]=simpleStrategy(players,deck,dealer,j,bets);
+    [players,deck]=mimicdealer(deck,players,j,standOnSoft17);
 end
 
 %% dealer plays

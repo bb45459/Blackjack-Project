@@ -22,16 +22,16 @@ function varargout = ComputerTool(varargin)
 
 % Edit the above text to modify the response to help ComputerTool
 
-% Last Modified by GUIDE v2.5 08-Apr-2014 10:41:25
+% Last Modified by GUIDE v2.5 20-Apr-2014 17:06:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
-                   'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @ComputerTool_OpeningFcn, ...
-                   'gui_OutputFcn',  @ComputerTool_OutputFcn, ...
-                   'gui_LayoutFcn',  [] , ...
-                   'gui_Callback',   []);
+    'gui_Singleton',  gui_Singleton, ...
+    'gui_OpeningFcn', @ComputerTool_OpeningFcn, ...
+    'gui_OutputFcn',  @ComputerTool_OutputFcn, ...
+    'gui_LayoutFcn',  [] , ...
+    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
@@ -60,10 +60,12 @@ guidata(hObject, handles);
 
 % UIWAIT makes ComputerTool wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
+ 
+initialization = zeros(1,2);
+set(handles.dataTable,'Data',initialization);
 
 % --- Outputs from this function are returned to the command line.
-function varargout = ComputerTool_OutputFcn(hObject, eventdata, handles) 
+function varargout = ComputerTool_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -175,18 +177,18 @@ end
 
 
 
-function totalHandsEditText_Callback(hObject, eventdata, handles)
-% hObject    handle to totalHandsEditText (see GCBO)
+function totalSimulationsText_Callback(hObject, eventdata, handles)
+% hObject    handle to totalSimulationsText (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of totalHandsEditText as text
-%        str2double(get(hObject,'String')) returns contents of totalHandsEditText as a double
+% Hints: get(hObject,'String') returns contents of totalSimulationsText as text
+%        str2double(get(hObject,'String')) returns contents of totalSimulationsText as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function totalHandsEditText_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to totalHandsEditText (see GCBO)
+function totalSimulationsText_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to totalSimulationsText (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -203,13 +205,86 @@ function simulateButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+numplayers = get(handles.compPlayersPopup,'Value');
+numdecks = get(handles.decksPopup,'Value');
+initialstake = str2double(get(handles.initialStakeEditText,'String'));
+betvalue = str2double(get(handles.betSizeEditText,'String'));
+standOnSoft17 = get(handles.soft17Checkbox,'Value');
+numhandsplayed = 0;
+plotablestakes = zeros(1,100);
+plotablehandsplayed = zeros(1,100);
 
-% --- Executes on button press in saveDataButton.
-function saveDataButton_Callback(hObject, eventdata, handles)
-% hObject    handle to saveDataButton (see GCBO)
+
+% Create stakes
+stakes=zeros(1,numplayers);
+bets=zeros(2,numplayers);
+
+for i=1:numplayers
+    stakes(i)=initialstake;
+    bets(1,i)=betvalue;
+end
+
+% Simulate the hands
+
+while stakes(1)>0
+    switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
+        case handles.mimicDealerRadio % mimic dealer
+            stakes = playMimicDealerHand(numplayers,numdecks,stakes,bets,standOnSoft17);
+            strategy = 1;
+        case handles.simpleStrategyRadio % simple strategy
+            stakes = playSimpleStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);
+            strategy = 2;
+        case handles.basicStrategyRadio % basic strategy
+            stakes = playBasicStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);
+            strategy = 3;
+    end
+    disp(num2str(stakes(1)))
+    
+    numhandsplayed=numhandsplayed+1;
+    plotablestakes(numhandsplayed)=stakes(1);
+    plotablehandsplayed(numhandsplayed)=numhandsplayed;
+    
+    
+    % plot the stake vs. hands played
+    plot(handles.plotAxes,plotablehandsplayed(1:numhandsplayed),plotablestakes(1:numhandsplayed))
+    axis(handles.plotAxes, [0,numhandsplayed,0,max(plotablestakes)])
+    xlabel(handles.plotAxes, 'Number of Hands Played')
+    ylabel(handles.plotAxes, 'Stake Value')
+    drawnow
+    
+    
+    set(handles.totalHandsText,'String',numhandsplayed)
+    set(handles.peakStakeText,'String',max(plotablestakes))
+    
+end
+
+disp([num2str(numhandsplayed) ' hands played'])
+simulations = str2double(get(handles.totalSimulationsText,'String'))+1;
+set(handles.totalSimulationsText,'String',simulations)
+
+% add data to spreadsheet
+
+row = str2double(get(handles.totalSimulationsText,'String'));
+
+spreadsheetdata=get(handles.dataTable,'Data');
+
+spreadsheetdata(row, 1) = strategy;
+spreadsheetdata(row, 2) = numhandsplayed;
+
+set(handles.dataTable,'Data',spreadsheetdata)
+
+% --- Executes on button press in clearDataButton.
+function clearDataButton_Callback(hObject, eventdata, handles)
+% hObject    handle to clearDataButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+% takes the current simulation data and put it in the spreadsheet to be
+% graphed later
+
+initialization = zeros(1,2);
+set(handles.dataTable,'Data',initialization);
+set(handles.totalSimulationsText,'String',0);
 
 % --- Executes on button press in graphDataButton.
 function graphDataButton_Callback(hObject, eventdata, handles)
@@ -217,6 +292,9 @@ function graphDataButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+numhandsplayed = str2double(get(handles.totalHandsText,'String'));
+plot(handles.plotAxes,plotablehandsplayed(1:numhandsplayed),plotablestakes(1:numhandsplayed))
+axis(handles.plotAxes, [0,numhandsplayed,0,max(plotablestakes)])
 
 % --- Executes on button press in graphSpreadsheetButton.
 function graphSpreadsheetButton_Callback(hObject, eventdata, handles)
@@ -224,6 +302,14 @@ function graphSpreadsheetButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+spreadsheetdata=get(handles.dataTable,'Data');
+maximum = max(spreadsheetdata);
+
+plot(handles.plotAxes,spreadsheetdata(:,1),spreadsheetdata(:,2),'o')
+axis(handles.plotAxes,[0,4 0,maximum(2)+50])
+
+xlabel(handles.plotAxes,'Strategy:  1 = Mimic Dealer 2 = Simple Strategy 3 = Basic Strategy')
+ylabel(handles.plotAxes,'Longevity (hands played)')
 
 % --- Executes on button press in switchToHumanButton.
 function switchToHumanButton_Callback(hObject, eventdata, handles)

@@ -2,9 +2,9 @@ function [stakes]=playBasicStrategyHand(numplayers,numdecks,stakes,bets,standOnS
 
 % Plays a hand of Basic strategy
 
-%% players play
+%% players play a hand
 
-deck=createDeck(numdecks);
+deck=createDeck(numdecks); % create and shuffle the deck
 deck=shuffle(deck);
 [players,dealer,deck]=deal(deck,numplayers);
 
@@ -12,9 +12,9 @@ for j=1:numplayers
     [players,deck,bets]=basicStrategy(players,deck,dealer,j,bets,numdecks,standOnSoft17);
 end
 
-%% dealer plays
+%% dealer plays a hand
 
-[dealer,deck]=dealerplay(deck,dealer);
+[dealer,deck]=dealerplay(deck,dealer,standOnSoft17);
 
 
 %% Determine winners and losers and edit stakes

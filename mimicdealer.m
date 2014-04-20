@@ -1,18 +1,31 @@
-function [newplayers,newdeck]=mimicdealer(deck,players,player)
+function [newplayers,newdeck]=mimicdealer(deck,players,player,standOnSoft17)
 
 k=3;
 newdeck=deck;
 
-
-for i=1:length(players{player})
-    if ~isempty(players{player}{i})
-        if players{player}{i}==1&&handtotal(players{player})>7
-            players{player}{i}=11;
+%dealer stands on soft 17
+if standOnSoft17==true
+    for i=1:length(players{player})
+        if ~isempty(players{player}{i})
+            if players{player}{i}==1&&handtotal(players{player},1)>=7
+                players{player}{i}=11;
+            end
         end
     end
 end
 
-while handtotal(players{player})<17
+%dealer hits on soft 17
+if standOnSoft17==false
+    for i=1:length(players{player})
+        if ~isempty(players{player}{i})
+            if players{player}{i}==1&&handtotal(players{player},1)>7
+                players{player}{i}=11;
+            end
+        end
+    end
+end
+
+while handtotal(players{player},1)<17
     
     
     topCard=getDeckPos(newdeck);
@@ -31,7 +44,7 @@ while handtotal(players{player})<17
     
 end
 
-if handtotal(players{player})>21
+if handtotal(players{player},1)>21
     disp(['Player ' num2str(player) ' busted!']);
 end
 

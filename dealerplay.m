@@ -1,13 +1,27 @@
-function [newdealer,newdeck]=dealerplay(deck,dealer)
+function [newdealer,newdeck]=dealerplay(deck,dealer,standOnSoft17)
 
 k=3;
 newdeck=deck;
 newdealer=dealer;
 
-for i=1:length(newdealer)
-    if ~isempty(newdealer{i})
-        if newdealer{i}==1&&handtotal(newdealer,1)>7
-            newdealer{i}=11;
+%dealer stands on soft 17
+if standOnSoft17==true
+    for i=1:length(newdealer)
+        if ~isempty(newdealer{i})
+            if newdealer{i}==1&&handtotal(newdealer,1)>=7
+                newdealer{i}=11;
+            end
+        end
+    end
+end
+
+%dealer hits on soft 17
+if standOnSoft17==false
+    for i=1:length(newdealer)
+        if ~isempty(newdealer{i})
+            if newdealer{i}==1&&handtotal(newdealer,1)>7
+                newdealer{i}=11;
+            end
         end
     end
 end
