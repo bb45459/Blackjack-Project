@@ -26,21 +26,21 @@ for j=1:numplayers
         if handtotal(players{j},k)<=21
             if handtotal(dealer,1)<=21
                 if handtotal(players{j},k)<handtotal(dealer,1)
-                    stakes(j)=stakes(j)-bets(j);
-                    disp(['Player ' num2str(j)  ' hand ' num2str(k) ' loses ' num2str(bets(j))])
+                    stakes(j)=stakes(j)-bets(k,j);
+                    disp(['Player ' num2str(j)  ' hand ' num2str(k) ' loses ' num2str(bets(k,j))])
                 elseif handtotal(players{j},k)==handtotal(dealer,1)
                     disp(['Player ' num2str(j)  ' hand ' num2str(k) ' pushes'])
                 elseif handtotal(players{j},k)>handtotal(dealer,1)
-                    stakes(j)=stakes(j)+bets(j);
-                    disp(['Player ' num2str(j)  ' hand ' num2str(k) ' wins ' num2str(bets(j))])
+                    stakes(j)=stakes(j)+bets(k,j);
+                    disp(['Player ' num2str(j)  ' hand ' num2str(k) ' wins ' num2str(bets(k,j))])
                 end
             else
-                stakes(j)=stakes(j)+bets(j);
-                disp(['Player ' num2str(j) ' hand ' num2str(k) ' wins ' num2str(bets(j))])
+                stakes(j)=stakes(j)+bets(k,j);
+                disp(['Player ' num2str(j) ' hand ' num2str(k) ' wins ' num2str(bets(k,j))])
             end
         else
-            stakes(j)=stakes(j)-bets(j);
-            disp(['Player ' num2str(j)  ' hand ' num2str(k) ' loses ' num2str(bets(j))])
+            stakes(j)=stakes(j)-bets(k,j);
+            disp(['Player ' num2str(j)  ' hand ' num2str(k) ' loses ' num2str(bets(k,j))])
         end
     end
 end

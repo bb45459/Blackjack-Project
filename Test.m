@@ -4,7 +4,7 @@ clc
 %% initial values
 
 numplayers=3;
-numdecks=2;
+numdecks=1;
 initialstake=100;
 betvalue=5;
 standOnSoft17=true;

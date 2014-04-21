@@ -3,6 +3,8 @@ function move = basic1DeckNoStandSoft(player,dealer)
 % Basic Strategy - 1 deck - dealer does NOT stand on soft 17
 % 0 = Stand   1 = Hit   2 = Double  X = Not Possible
 
+X=99;
+
 softS = [...
     %1 2 3 4 5 6 7 8 9 T A
      X X X X X X X X X X X  %1 

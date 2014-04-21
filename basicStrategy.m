@@ -2,7 +2,7 @@ function [players,deck,newbets] = basicStrategy(players,deck,dealer,player,bets,
 
 % performs the basic strategy for moves for blackjack
 
-doubleddown=0;
+doubleddown=[0 0];
 newbets=bets;
 stand=false;
 %% check to see if player should split
@@ -41,7 +41,7 @@ if players{player}{1}==players{player}{2}
         case 3 %doubledown
             [players,deck]=doubledown(players,deck,player,1);
             newbets(player)=newbets(player)+bets(1,player);
-            doubleddown=true;
+            doubleddown(1)=1;
         case 0 %stand
             stand=true;
     end
@@ -116,8 +116,9 @@ end
 %% play the hard hand strategy to either bust or stand
 
 % dont do this if player doubled down before on all hands
-if doubleddown==false
-    for k=1:handnumber
+
+for k=1:handnumber
+    if doubleddown(k)==0
         %change hand
         stand=false;
         
