@@ -1,35 +1,35 @@
-function varargout = ComputerTool(varargin)
-% COMPUTERTOOL MATLAB code for ComputerTool.fig
-%      COMPUTERTOOL, by itself, creates a new COMPUTERTOOL or raises the existing
+function varargout = ComputerToolTester(varargin)
+% COMPUTERTOOLTESTER MATLAB code for ComputerToolTester.fig
+%      COMPUTERTOOLTESTER, by itself, creates a new COMPUTERTOOLTESTER or raises the existing
 %      singleton*.
 %
-%      H = COMPUTERTOOL returns the handle to a new COMPUTERTOOL or the handle to
+%      H = COMPUTERTOOLTESTER returns the handle to a new COMPUTERTOOLTESTER or the handle to
 %      the existing singleton*.
 %
-%      COMPUTERTOOL('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in COMPUTERTOOL.M with the given input arguments.
+%      COMPUTERTOOLTESTER('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in COMPUTERTOOLTESTER.M with the given input arguments.
 %
-%      COMPUTERTOOL('Property','Value',...) creates a new COMPUTERTOOL or raises the
+%      COMPUTERTOOLTESTER('Property','Value',...) creates a new COMPUTERTOOLTESTER or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before ComputerTool_OpeningFcn gets called.  An
+%      applied to the GUI before ComputerToolTester_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to ComputerTool_OpeningFcn via varargin.
+%      stop.  All inputs are passed to ComputerToolTester_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help ComputerTool
+% Edit the above text to modify the response to help ComputerToolTester
 
-% Last Modified by GUIDE v2.5 20-Apr-2014 17:06:11
+% Last Modified by GUIDE v2.5 21-Apr-2014 16:18:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
-    'gui_OpeningFcn', @ComputerTool_OpeningFcn, ...
-    'gui_OutputFcn',  @ComputerTool_OutputFcn, ...
+    'gui_OpeningFcn', @ComputerToolTester_OpeningFcn, ...
+    'gui_OutputFcn',  @ComputerToolTester_OutputFcn, ...
     'gui_LayoutFcn',  [] , ...
     'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,28 +44,28 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before ComputerTool is made visible.
-function ComputerTool_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before ComputerToolTester is made visible.
+function ComputerToolTester_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to ComputerTool (see VARARGIN)
+% varargin   command line arguments to ComputerToolTester (see VARARGIN)
 
-% Choose default command line output for ComputerTool
+% Choose default command line output for ComputerToolTester
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes ComputerTool wait for user response (see UIRESUME)
+% UIWAIT makes ComputerToolTester wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 initialization = zeros(1,2);
 set(handles.dataTable,'Data',initialization);
 
 % --- Outputs from this function are returned to the command line.
-function varargout = ComputerTool_OutputFcn(hObject, eventdata, handles)
+function varargout = ComputerToolTester_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -208,7 +208,7 @@ function strategyButtonGroup_SelectionChangeFcn(hObject, eventdata, handles)
 %         
 % end
 
-disp('Hello')
+%disp('Hello')
 
 % --- Executes during object creation, after setting all properties.
 function totalSimulationsText_CreateFcn(hObject, eventdata, handles)
@@ -229,6 +229,8 @@ function simulateButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+while str2double(get(handles.totalSimulationsText,'String'))<str2double(get(handles.runTimesText,'String'))
+    
 numplayers = get(handles.compPlayersPopup,'Value');
 numdecks = get(handles.decksPopup,'Value');
 initialstake = str2double(get(handles.initialStakeEditText,'String'));
@@ -302,6 +304,7 @@ setappdata(handles.plotAxes,'Value',plotablehandsplayed)
 setappdata(handles.peakStakeText,'Value',plotablestakes)
 setappdata(handles.totalHandsText,'Value',numhandsplayed)
 
+end 
 % --- Executes on button press in clearDataButton.
 function clearDataButton_Callback(hObject, eventdata, handles)
 % hObject    handle to clearDataButton (see GCBO)
@@ -352,3 +355,26 @@ function switchToHumanButton_Callback(hObject, eventdata, handles)
 % hObject    handle to switchToHumanButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+
+function runTimesText_Callback(hObject, eventdata, handles)
+% hObject    handle to runTimesText (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of runTimesText as text
+%        str2double(get(hObject,'String')) returns contents of runTimesText as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function runTimesText_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to runTimesText (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
