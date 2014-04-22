@@ -64,6 +64,61 @@ guidata(hObject, handles);
 initialization = zeros(1,2);
 set(handles.dataTable,'Data',initialization);
 
+
+numdecks = get(handles.decksPopup,'Value');
+standOnSoft17 = get(handles.soft17Checkbox,'Value');
+
+
+switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
+    case handles.mimicDealerRadio % mimic dealer
+        
+        if standOnSoft17==true
+            
+        imshow('MimicStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+
+            
+        elseif standOnSoft17==false
+            
+        imshow('MimicNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        end
+        
+    case handles.simpleStrategyRadio % simple strategy
+        
+        imshow('SimpleStrategy.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+    case handles.basicStrategyRadio % basic strategy
+        
+        if numdecks==1 && standOnSoft17==true
+           
+            imshow('OneDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==true
+            
+            imshow('TwoDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==true
+            
+            imshow('FourDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==1 && standOnSoft17==false
+            
+            imshow('OneDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==false
+            
+            imshow('TwoDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==false
+        
+            imshow('FourDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+        end
+        
+end
+
+
+
 % --- Outputs from this function are returned to the command line.
 function varargout = ComputerToolTester_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
@@ -83,6 +138,58 @@ function decksPopup_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns decksPopup contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from decksPopup
+
+numdecks = get(handles.decksPopup,'Value');
+standOnSoft17 = get(handles.soft17Checkbox,'Value');
+
+
+switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
+    case handles.mimicDealerRadio % mimic dealer
+        
+        if standOnSoft17==true
+            
+        imshow('MimicStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+
+            
+        elseif standOnSoft17==false
+            
+        imshow('MimicNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        end
+        
+    case handles.simpleStrategyRadio % simple strategy
+        
+        imshow('SimpleStrategy.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+    case handles.basicStrategyRadio % basic strategy
+        
+        if numdecks==1 && standOnSoft17==true
+           
+            imshow('OneDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==true
+            
+            imshow('TwoDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==true
+            
+            imshow('FourDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==1 && standOnSoft17==false
+            
+            imshow('OneDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==false
+            
+            imshow('TwoDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==false
+        
+            imshow('FourDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+        end
+        
+end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -153,6 +260,59 @@ function soft17Checkbox_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of soft17Checkbox
 
 
+numdecks = get(handles.decksPopup,'Value');
+standOnSoft17 = get(handles.soft17Checkbox,'Value');
+
+
+switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
+    case handles.mimicDealerRadio % mimic dealer
+        
+        if standOnSoft17==true
+            
+        imshow('MimicStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+
+            
+        elseif standOnSoft17==false
+            
+        imshow('MimicNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        end
+        
+    case handles.simpleStrategyRadio % simple strategy
+        
+        imshow('SimpleStrategy.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+    case handles.basicStrategyRadio % basic strategy
+        
+        if numdecks==1 && standOnSoft17==true
+           
+            imshow('OneDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==true
+            
+            imshow('TwoDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==true
+            
+            imshow('FourDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==1 && standOnSoft17==false
+            
+            imshow('OneDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==false
+            
+            imshow('TwoDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==false
+        
+            imshow('FourDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+        end
+        
+end
+
+
 % --- Executes on selection change in compPlayersPopup.
 function compPlayersPopup_Callback(hObject, eventdata, handles)
 % hObject    handle to compPlayersPopup (see GCBO)
@@ -193,22 +353,58 @@ function strategyButtonGroup_SelectionChangeFcn(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of totalSimulationsText as text
 %        str2double(get(hObject,'String')) returns contents of totalSimulationsText as a double
 
-% switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
-%     case handles.mimicDealerRadio % mimic dealer
-% 
-%         imshow('TwoDeckStand.png')
-%         
-%     case handles.simpleStrategyRadio % simple strategy
-% 
-%         
-%         
-%     case handles.basicStrategyRadio % basic strategy
-% 
-%         
-%         
-% end
 
-%disp('Hello')
+numdecks = get(handles.decksPopup,'Value');
+standOnSoft17 = get(handles.soft17Checkbox,'Value');
+
+
+switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
+    case handles.mimicDealerRadio % mimic dealer
+        
+        if standOnSoft17==true
+            
+        imshow('MimicStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+
+            
+        elseif standOnSoft17==false
+            
+        imshow('MimicNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        end
+        
+    case handles.simpleStrategyRadio % simple strategy
+        
+        imshow('SimpleStrategy.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+    case handles.basicStrategyRadio % basic strategy
+        
+        if numdecks==1 && standOnSoft17==true
+           
+            imshow('OneDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==true
+            
+            imshow('TwoDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==true
+            
+            imshow('FourDeckStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==1 && standOnSoft17==false
+            
+            imshow('OneDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==2 && standOnSoft17==false
+            
+            imshow('TwoDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+            
+        elseif numdecks==4 && standOnSoft17==false
+        
+            imshow('FourDeckNoStand.png','Parent',handles.strategyChartAxes,'InitialMagnification','fit')
+        
+        end
+        
+end
 
 % --- Executes during object creation, after setting all properties.
 function totalSimulationsText_CreateFcn(hObject, eventdata, handles)
@@ -231,80 +427,80 @@ function simulateButton_Callback(hObject, eventdata, handles)
 
 while str2double(get(handles.totalSimulationsText,'String'))<str2double(get(handles.runTimesText,'String'))
     
-numplayers = get(handles.compPlayersPopup,'Value');
-numdecks = get(handles.decksPopup,'Value');
-initialstake = str2double(get(handles.initialStakeEditText,'String'));
-betvalue = str2double(get(handles.betSizeEditText,'String'));
-standOnSoft17 = get(handles.soft17Checkbox,'Value');
-numhandsplayed = 0;
-plotablestakes = zeros(1,100);
-plotablehandsplayed = zeros(1,100);
-
-
-% Create stakes
-stakes=zeros(1,numplayers);
-bets=zeros(2,numplayers);
-
-for i=1:numplayers
-    stakes(i)=initialstake;
-    bets(1,i)=betvalue;
-end
-
-% Simulate the hands
-
-while stakes(1)>0
-    switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
-        case handles.mimicDealerRadio % mimic dealer
-            stakes = playMimicDealerHand(numplayers,numdecks,stakes,bets,standOnSoft17);
-            strategy = 1;
-        case handles.simpleStrategyRadio % simple strategy
-            stakes = playSimpleStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);
-            strategy = 2;
-        case handles.basicStrategyRadio % basic strategy
-            stakes = playBasicStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);
-            strategy = 3;
+    numplayers = get(handles.compPlayersPopup,'Value');
+    numdecks = get(handles.decksPopup,'Value');
+    initialstake = str2double(get(handles.initialStakeEditText,'String'));
+    betvalue = str2double(get(handles.betSizeEditText,'String'));
+    standOnSoft17 = get(handles.soft17Checkbox,'Value');
+    numhandsplayed = 0;
+    plotablestakes = zeros(1,100);
+    plotablehandsplayed = zeros(1,100);
+    
+    
+    % Create stakes
+    stakes=zeros(1,numplayers);
+    bets=zeros(2,numplayers);
+    
+    for i=1:numplayers
+        stakes(i)=initialstake;
+        bets(1,i)=betvalue;
     end
-    disp(num2str(stakes(1)))
     
-    numhandsplayed=numhandsplayed+1;
-    plotablestakes(numhandsplayed)=stakes(1);
-    plotablehandsplayed(numhandsplayed)=numhandsplayed;
+    % Simulate the hands
+    
+    while stakes(1)>0
+        switch get(handles.strategyButtonGroup,'SelectedObject') % choose strategy
+            case handles.mimicDealerRadio % mimic dealer
+                stakes = playMimicDealerHand(numplayers,numdecks,stakes,bets,standOnSoft17);
+                strategy = 1;
+            case handles.simpleStrategyRadio % simple strategy
+                stakes = playSimpleStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);
+                strategy = 2;
+            case handles.basicStrategyRadio % basic strategy
+                stakes = playBasicStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);
+                strategy = 3;
+        end
+        disp(num2str(stakes(1)))
+        
+        numhandsplayed=numhandsplayed+1;
+        plotablestakes(numhandsplayed)=stakes(1);
+        plotablehandsplayed(numhandsplayed)=numhandsplayed;
+        
+        
+        % plot the stake vs. hands played
+        plot(handles.plotAxes,plotablehandsplayed(1:numhandsplayed),plotablestakes(1:numhandsplayed))
+        axis(handles.plotAxes, [0,numhandsplayed,0,max(plotablestakes)])
+        xlabel(handles.plotAxes, 'Number of Hands Played')
+        ylabel(handles.plotAxes, 'Stake Value')
+        drawnow
+        
+        
+        set(handles.totalHandsText,'String',numhandsplayed)
+        set(handles.peakStakeText,'String',max(plotablestakes))
+        
+    end
+    
+    disp([num2str(numhandsplayed) ' hands played'])
+    simulations = str2double(get(handles.totalSimulationsText,'String'))+1;
+    set(handles.totalSimulationsText,'String',simulations)
+    
+    % add data to spreadsheet
+    
+    row = str2double(get(handles.totalSimulationsText,'String'));
+    
+    spreadsheetdata=get(handles.dataTable,'Data');
+    
+    spreadsheetdata(row, 1) = strategy;
+    spreadsheetdata(row, 2) = numhandsplayed;
+    
+    set(handles.dataTable,'Data',spreadsheetdata)
     
     
-    % plot the stake vs. hands played
-    plot(handles.plotAxes,plotablehandsplayed(1:numhandsplayed),plotablestakes(1:numhandsplayed))
-    axis(handles.plotAxes, [0,numhandsplayed,0,max(plotablestakes)])
-    xlabel(handles.plotAxes, 'Number of Hands Played')
-    ylabel(handles.plotAxes, 'Stake Value')
-    drawnow
-    
-    
-    set(handles.totalHandsText,'String',numhandsplayed)
-    set(handles.peakStakeText,'String',max(plotablestakes))
+    setappdata(handles.plotAxes,'Value',plotablehandsplayed)
+    setappdata(handles.peakStakeText,'Value',plotablestakes)
+    setappdata(handles.totalHandsText,'Value',numhandsplayed)
     
 end
-
-disp([num2str(numhandsplayed) ' hands played'])
-simulations = str2double(get(handles.totalSimulationsText,'String'))+1;
-set(handles.totalSimulationsText,'String',simulations)
-
-% add data to spreadsheet
-
-row = str2double(get(handles.totalSimulationsText,'String'));
-
-spreadsheetdata=get(handles.dataTable,'Data');
-
-spreadsheetdata(row, 1) = strategy;
-spreadsheetdata(row, 2) = numhandsplayed;
-
-set(handles.dataTable,'Data',spreadsheetdata)
-
-
-setappdata(handles.plotAxes,'Value',plotablehandsplayed)
-setappdata(handles.peakStakeText,'Value',plotablestakes)
-setappdata(handles.totalHandsText,'Value',numhandsplayed)
-
-end 
 % --- Executes on button press in clearDataButton.
 function clearDataButton_Callback(hObject, eventdata, handles)
 % hObject    handle to clearDataButton (see GCBO)
