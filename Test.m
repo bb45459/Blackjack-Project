@@ -33,11 +33,11 @@ end
 %  deck=createDeck(numdecks);
 %  deck=shuffle(deck);
 %  [players,dealer,deck]=deal(deck,numplayers);
-%
+% 
 %  player=1;
 %  players{player}{1}=1;
 %  players{player}{2}=1;
-%[players,deck,newbets]=basicStrategy(players,deck,dealer,player,bets,numdecks,standOnSoft17);
+% [players,deck,bets]=basicStrategy(players,deck,dealer,player,bets,numdecks,standOnSoft17);
 
 while stakes(1)>0
     stakes = playBasicStrategyHand(numplayers,numdecks,stakes,bets,standOnSoft17);

@@ -1,7 +1,7 @@
 function move = basic2DeckNoStandHard(player,dealer)
 
 % 0 = stand 1 = Hit 2 = Double
-
+X=99;
 hardS = [...
     %1 2 3 4 5 6 7 8 9 T A
      X X X X X X X X X X X  %1 

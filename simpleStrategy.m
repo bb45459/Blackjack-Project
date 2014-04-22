@@ -4,10 +4,9 @@ function [players,deck,newbets]=simpleStrategy(players,deck,dealer,player,bets)
 
 %% check to see if player should split
 newbets=bets;
+playerhit=false;
 %players can only split once!
 
-% players{player}{1}=1;
-% players{player}{2}=1;
 
 if players{player}{1}==players{player}{2}
     move = splitSimple(players{player}{1},dealer{1});
@@ -41,11 +40,18 @@ for k=1:handnumber
                 case 1 %hit
                     [players,deck]=hit(players,deck,player,k);
                     i=0;
+                    playerhit=true;
                 case 2 %double down
-                    [players,deck]=doubledown(players,deck,player,k);
-                    stand=true;
-                    newbets(player)=newbets(player)+bets(k,player);
-                    doubleddown(k)=1;
+                    if playerhit==false
+                        [players,deck]=doubledown(players,deck,player,k);
+                        stand=true;
+                        newbets(player)=newbets(player)+bets(k,player);
+                        doubleddown(k)=1;
+                    else
+                        [players,deck]=hit(players,deck,player,k);
+                        i=0;
+                        playerhit=true;
+                    end
                     % hand over when doubled down
                 case 0 %stand
                     stand=true;
@@ -60,7 +66,6 @@ for k=1:handnumber
     if handtotal(players{player},k)<=11 && acepresent
         players{player}{k,i}=11;
     end
-    
 end
 
 
@@ -78,12 +83,20 @@ for k=1:handnumber
             switch move
                 case 1 % hit
                     [players,deck]=hit(players,deck,player,k);
+                    playerhit = true;
                 case 2 % doubledown
-                    [players,deck]=doubledown(players,deck,player,k);
-                    stand=true;
-                    newbets(player)=newbets(player)+bets(k,player);
+                    if playerhit==false
+                        [players,deck]=doubledown(players,deck,player,k);
+                        stand=true;
+                        newbets(k,player)=newbets(k,player)+bets(k,player);
+                        doubleddown(k)=1;
+                    else
+                        [players,deck]=hit(players,deck,player,k);
+                        playerhit = true;
+                    end
                 case 0 % stand
                     stand = true;
+                    
             end
         end
     end
